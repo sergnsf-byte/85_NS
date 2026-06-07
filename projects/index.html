@@ -1,1182 +1,442 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>nestudio - портфолио</title>
-  <meta
-    name="description"
-    content="nestudio - AI-ролики, AI-аватары, e-commerce визуалы, презентации, лендинги и мокапы."
-  />
-  <style>
-    :root{
-      --bg:#efefec;
-      --text:#111111;
-      --muted:#7d7d78;
-      --card:#dcdcd7;
-      --surface:#f6f6f3;
-      --surface-border:#e5e5df;
-      --surface-strong:#111111;
-      --surface-strong-text:#ffffff;
-      --nav-bg:rgba(246,246,243,.94);
-      --nav-active:#ffffff;
-      --line:rgba(17,17,17,.08);
-      --shadow:0 8px 22px rgba(0,0,0,.04);
-      --container:1440px;
-      --radius-xl:24px;
-      --radius-lg:18px;
-      --radius-pill:999px;
-      --header-height:60px;
-      --font-sans:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      --fs-1:12px;
-      --fs-2:14px;
-      --fs-3:16px;
-      --fs-4:22px;
-      --fs-5:28px;
-      --fs-6:clamp(40px, 5vw, 60px);
-      --fw-regular:400;
-      --fw-medium:500;
-      --fw-semibold:600;
-      --lh-title:1.2;
-      --lh-body:1.6;
-      --tracking-tight:-.03em;
-      --tracking-medium:-.02em;
-      --tracking-label:.04em;
-      --reveal-y:24px;
-      --transition-base:.25s ease;
-      --transition-slow:.8s cubic-bezier(.22,1,.36,1);
-    }
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 
-    body.dark{
-      --bg:#0f1115;
-      --text:#f2f3f5;
-      --muted:#9da3ae;
-      --card:#171b21;
-      --surface:#171a20;
-      --surface-border:#262b33;
-      --surface-strong:#f2f3f5;
-      --surface-strong-text:#0f1115;
-      --nav-bg:rgba(20,23,29,.94);
-      --nav-active:#1f242c;
-      --line:rgba(255,255,255,.08);
-      --shadow:0 10px 28px rgba(0,0,0,.28);
-    }
+	<title>nestudio — портфолио</title>
 
-    *{box-sizing:border-box;margin:0;padding:0}
-    html{scroll-behavior:smooth;overflow-anchor:none}
+	<meta
+		name="description"
+		content="nestudio — AI-ролики, AI-аватары, e-commerce визуалы, презентации, лендинги и мокапы для бизнеса."
+	/>
 
-    body{
-      background:var(--bg);
-      color:var(--text);
-      font-family:var(--font-sans);
-      font-size:var(--fs-3);
-      line-height:var(--lh-body);
-      -webkit-font-smoothing:antialiased;
-      text-rendering:optimizeLegibility;
-      overflow-x:hidden;
-      overscroll-behavior-y:none;
-      overflow-anchor:none;
-      transition:background-color var(--transition-base), color var(--transition-base);
-    }
-
-    body.is-loading .page{
-      opacity:0;
-      transform:translateY(18px);
-    }
-
-    a{color:inherit;text-decoration:none}
-    button{font:inherit;border:none;background:none;touch-action:manipulation}
-    img{display:block;width:100%;height:100%;object-fit:cover}
-
-    .site-header{
-      position:sticky;
-      top:0;
-      z-index:5000;
-      background:var(--nav-bg);
-      backdrop-filter:blur(14px);
-      -webkit-backdrop-filter:blur(14px);
-      border-bottom:1px solid var(--line);
-      overflow-anchor:none;
-    }
-
-    .topbar{
-      width:min(var(--container), calc(100% - 32px));
-      margin:0 auto;
-      min-height:var(--header-height);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:16px;
-    }
-
-    .brand{
-      font-size:var(--fs-3);
-      line-height:1;
-      font-weight:var(--fw-semibold);
-      letter-spacing:var(--tracking-medium);
-      white-space:nowrap;
-      flex:0 0 auto;
-    }
-
-    .header-actions{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      margin-left:auto;
-      min-width:0;
-    }
-
-    .header-contact{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      min-width:0;
-      padding:0 2px;
-    }
-
-    .header-contact a,
-    .header-contact span{
-      font-size:var(--fs-2);
-      line-height:1;
-      color:var(--muted);
-      white-space:nowrap;
-      transition:color .2s ease, opacity .2s ease;
-    }
-
-    .header-contact a:hover{color:var(--text)}
-    .header-divider{
-      width:1px;
-      height:14px;
-      background:var(--line);
-      flex:0 0 auto;
-    }
-
-    .header-cta{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      min-height:38px;
-      padding:0 16px;
-      border-radius:var(--radius-pill);
-      background:var(--surface-strong);
-      color:var(--surface-strong-text);
-      border:1px solid var(--surface-strong);
-      font-size:var(--fs-2);
-      line-height:1;
-      font-weight:var(--fw-medium);
-      white-space:nowrap;
-      box-shadow:0 8px 20px rgba(0,0,0,.08);
-      transition:transform var(--transition-base), opacity var(--transition-base), box-shadow var(--transition-base);
-    }
-
-    .header-cta:hover{
-      transform:translateY(-1px);
-      opacity:.92;
-    }
-
-    .theme-toggle{
-      width:32px;
-      height:32px;
-      display:grid;
-      place-items:center;
-      border-radius:50%;
-      background:transparent;
-      color:var(--text);
-      cursor:pointer;
-      font-size:var(--fs-3);
-      transition:transform .2s ease, opacity .2s ease;
-      flex:0 0 auto;
-    }
-
-    .theme-toggle:hover{
-      transform:rotate(8deg);
-      opacity:.8;
-    }
-
-    .page{
-      width:min(var(--container), calc(100% - 32px));
-      margin:0 auto;
-      padding:20px 0 84px;
-      position:relative;
-      z-index:1;
-      overflow-anchor:none;
-      opacity:1;
-      transform:none;
-      transition:opacity .7s ease, transform .7s ease;
-    }
-
-    .portfolio-intro{
-      margin-bottom:18px;
-      background:var(--card);
-      border-radius:var(--radius-xl);
-      padding:28px;
-      box-shadow:var(--shadow);
-      position:relative;
-      overflow:hidden;
-      isolation:isolate;
-    }
-
-    .portfolio-intro::after{
-      content:"";
-      position:absolute;
-      inset:auto -10% -30% auto;
-      width:340px;
-      height:340px;
-      background:radial-gradient(circle, rgba(255,255,255,.18) 0, rgba(255,255,255,0) 70%);
-      opacity:.55;
-      pointer-events:none;
-    }
-
-    body.dark .portfolio-intro::after{
-      background:radial-gradient(circle, rgba(79,142,255,.16) 0, rgba(79,142,255,0) 70%);
-      opacity:.9;
-    }
-
-    .section-title{
-      font-size:var(--fs-1);
-      line-height:1.2;
-      font-weight:var(--fw-medium);
-      letter-spacing:var(--tracking-label);
-      color:var(--muted);
-      margin-bottom:18px;
-      text-transform:uppercase;
-      opacity:0;
-      transform:translateY(18px);
-      transition:opacity .8s ease, transform .8s cubic-bezier(.22,1,.36,1);
-    }
-
-    .portfolio-title{
-      font-size:var(--fs-6);
-      line-height:1.02;
-      font-weight:var(--fw-semibold);
-      letter-spacing:var(--tracking-tight);
-      max-width:12ch;
-      margin:10px 0 16px;
-      text-wrap:balance;
-    }
-
-    .portfolio-title .line-wrap{
-      display:block;
-      overflow:hidden;
-    }
-
-    .portfolio-title .line{
-      display:block;
-      transform:translateY(115%);
-      opacity:0;
-      transition:transform .9s cubic-bezier(.22,1,.36,1), opacity .9s ease;
-    }
-
-    .portfolio-text{
-      max-width:62ch;
-      font-size:var(--fs-3);
-      line-height:var(--lh-body);
-      color:var(--muted);
-      opacity:0;
-      transform:translateY(18px);
-      transition:opacity .8s ease, transform .8s cubic-bezier(.22,1,.36,1);
-    }
-
-    body.is-ready .portfolio-title .line{
-      transform:translateY(0);
-      opacity:1;
-    }
-
-    body.is-ready .portfolio-title .line:nth-child(2){transition-delay:.08s}
-    body.is-ready .portfolio-title .line:nth-child(3){transition-delay:.16s}
-
-    body.is-ready .portfolio-text,
-    body.is-ready .section-title{
-      opacity:1;
-      transform:translateY(0);
-    }
-
-    body.is-ready .portfolio-text{transition-delay:.22s}
-    body.is-ready .section-title{transition-delay:.05s}
-
-    .filters-sticky{
-      position:sticky;
-      top:var(--header-height);
-      z-index:4000;
-      margin-bottom:18px;
-      padding:10px 0 14px;
-      background:var(--nav-bg);
-      backdrop-filter:blur(14px);
-      -webkit-backdrop-filter:blur(14px);
-      overflow-anchor:none;
-    }
-
-    .filters-shell{
-      background:var(--surface);
-      border:1px solid var(--surface-border);
-      border-radius:var(--radius-xl);
-      padding:10px;
-      box-shadow:var(--shadow);
-    }
-
-    .filters-menu{
-      display:flex;
-      align-items:center;
-      gap:8px;
-      flex-wrap:wrap;
-    }
-
-    .filter-btn{
-      appearance:none;
-      -webkit-appearance:none;
-      border:1px solid var(--surface-border);
-      background:transparent;
-      color:var(--muted);
-      border-radius:var(--radius-pill);
-      padding:10px 14px;
-      font-size:13px;
-      line-height:1;
-      font-weight:var(--fw-medium);
-      cursor:pointer;
-      transition:background-color .22s ease, color .22s ease, border-color .22s ease, box-shadow .22s ease, transform .22s ease, opacity .22s ease;
-      white-space:nowrap;
-      flex:0 0 auto;
-      outline:none;
-      user-select:none;
-      -webkit-tap-highlight-color:transparent;
-    }
-
-    .filter-btn:hover{
-      color:var(--text);
-      transform:translateY(-1px);
-    }
-
-    .filter-btn:focus-visible{
-      box-shadow:0 0 0 3px rgba(17,17,17,.08);
-    }
-
-    .filter-btn.active{
-      background:var(--surface-strong);
-      color:var(--surface-strong-text);
-      border-color:var(--surface-strong);
-      box-shadow:0 4px 12px rgba(0,0,0,.08);
-    }
-
-    .works{
-      display:grid;
-      grid-template-columns:repeat(3, minmax(0, 1fr));
-      gap:14px;
-      align-items:start;
-      overflow-anchor:none;
-      transition:min-height .12s linear;
-    }
-
-    .works.is-filtering{pointer-events:none}
-
-    .masonry-col{
-      display:flex;
-      flex-direction:column;
-      gap:14px;
-      min-width:0;
-    }
-
-    .card{
-      display:block;
-      width:100%;
-      min-width:0;
-      margin:0;
-      overflow-anchor:none;
-    }
-
-    .cardlink{display:block}
-
-    .cardimage{
-      position:relative;
-      border-radius:var(--radius-xl);
-      overflow:hidden;
-      background:var(--card);
-      box-shadow:var(--shadow);
-      margin-bottom:12px;
-    }
-
-    .cardimage img{
-      background:var(--card);
-      transition:transform .6s cubic-bezier(.22,1,.36,1), filter .35s ease;
-      filter:saturate(.98) contrast(1.02);
-    }
-
-    .card:hover .cardimage img{
-      transform:scale(1.03);
-      filter:saturate(1.05) contrast(1.04);
-    }
-
-    .h-220{height:220px}
-    .h-260{height:260px}
-    .h-300{height:300px}
-    .h-340{height:340px}
-    .h-380{height:380px}
-    .h-420{height:420px}
-
-    .cardtitle{
-      font-size:var(--fs-4);
-      line-height:1.12;
-      font-weight:var(--fw-semibold);
-      letter-spacing:var(--tracking-tight);
-      margin-bottom:6px;
-    }
-
-    .cardmeta{
-      font-size:var(--fs-2);
-      line-height:1.5;
-      color:var(--muted);
-      max-width:36ch;
-    }
-
-    .bottom-nav{
-      position:fixed;
-      left:50%;
-      bottom:calc(8px + env(safe-area-inset-bottom, 0px));
-      transform:translateX(-50%);
-      display:flex;
-      align-items:center;
-      gap:4px;
-      padding:6px;
-      background:var(--nav-bg);
-      border:1px solid var(--surface-border);
-      border-radius:var(--radius-pill);
-      backdrop-filter:blur(14px);
-      -webkit-backdrop-filter:blur(14px);
-      box-shadow:0 8px 24px rgba(0,0,0,.06);
-      z-index:99999;
-      width:calc(100% - 28px);
-      max-width:420px;
-    }
-
-    .bottom-nav a{
-      flex:1 1 0;
-      text-align:center;
-      padding:10px 8px;
-      border-radius:var(--radius-pill);
-      font-size:13px;
-      line-height:1;
-      color:var(--muted);
-      white-space:nowrap;
-      border:1px solid transparent;
-      transition:var(--transition-base);
-    }
-
-    .bottom-nav a:hover{color:var(--text)}
-
-    .bottom-nav a.active{
-      background:var(--surface-strong);
-      color:var(--surface-strong-text);
-      border-color:var(--surface-strong);
-      box-shadow:0 8px 20px rgba(0,0,0,.08);
-    }
-
-    .reveal{
-      opacity:0;
-      transform:translateY(var(--reveal-y));
-      transition:opacity var(--transition-slow), transform var(--transition-slow);
-      will-change:opacity, transform;
-    }
-
-    .reveal.is-visible{
-      opacity:1;
-      transform:translateY(0);
-    }
-
-    .reveal--fast{transition-duration:.55s}
-    .reveal--delay-1{transition-delay:.08s}
-    .reveal--delay-2{transition-delay:.16s}
-    .reveal--delay-3{transition-delay:.24s}
-    .reveal--delay-4{transition-delay:.32s}
-    .card.reveal{transform:translateY(26px)}
-    .works.is-filtering .card{pointer-events:none}
-
-    @media (prefers-reduced-motion: reduce){
-      *, *::before, *::after{
-        animation:none !important;
-        transition:none !important;
-        scroll-behavior:auto !important;
-      }
-
-      .reveal,
-      .reveal.is-visible,
-      .portfolio-title .line,
-      .portfolio-text,
-      .section-title,
-      .page{
-        opacity:1 !important;
-        transform:none !important;
-      }
-    }
-
-    @media (min-width:769px){
-      .bottom-nav{
-        width:auto;
-        max-width:none;
-      }
-
-      .bottom-nav a{
-        flex:0 0 auto;
-        padding:10px 18px;
-        font-size:14px;
-      }
-    }
-
-    @media (max-width:1180px){
-      .topbar{
-        flex-wrap:wrap;
-        align-items:flex-start;
-        padding:10px 0;
-      }
-
-      .header-actions{
-        width:100%;
-        justify-content:flex-end;
-        flex-wrap:wrap;
-        row-gap:10px;
-      }
-
-      .works{
-        grid-template-columns:repeat(2, minmax(0, 1fr));
-        gap:12px;
-      }
-
-      .masonry-col{gap:12px}
-    }
-
-    @media (max-width:640px){
-      :root{
-        --header-height:46px;
-        --fs-4:20px;
-        --fs-5:24px;
-        --fs-6:34px;
-      }
-
-      .topbar,
-      .page{
-        width:calc(100% - 20px);
-      }
-
-      .topbar{
-        padding:8px 0;
-        gap:10px;
-        flex-wrap:nowrap;
-        align-items:center;
-        justify-content:space-between;
-      }
-
-      .page{
-        padding-top:12px;
-        padding-bottom:72px;
-      }
-
-      .brand{font-size:15px}
-
-      .header-actions{
-        width:auto;
-        margin-left:auto;
-        justify-content:flex-end;
-        gap:8px;
-        flex-wrap:nowrap;
-      }
-
-      .header-contact{display:none}
-
-      .header-cta{
-        min-height:32px;
-        padding:0 12px;
-        font-size:12px;
-      }
-
-      .theme-toggle{
-        width:28px;
-        height:28px;
-        font-size:14px;
-      }
-
-      .portfolio-intro{
-        margin-bottom:12px;
-        padding:18px;
-        border-radius:var(--radius-lg);
-      }
-
-      .section-title{margin-bottom:12px}
-      .portfolio-title{margin:6px 0 12px;max-width:11ch}
-      .portfolio-text{font-size:15px;line-height:1.55}
-
-      .filters-sticky{
-        top:var(--header-height);
-        margin-bottom:12px;
-        padding:8px 0 12px;
-      }
-
-      .filters-shell{
-        border-radius:var(--radius-lg);
-        padding:8px;
-      }
-
-      .filters-menu{
-        flex-wrap:nowrap;
-        overflow-x:auto;
-        overflow-y:hidden;
-        scrollbar-width:none;
-        -webkit-overflow-scrolling:touch;
-        padding-bottom:2px;
-      }
-
-      .filters-menu::-webkit-scrollbar{display:none}
-
-      .filter-btn{
-        padding:10px 13px;
-        font-size:13px;
-      }
-
-      .cardimage{
-        border-radius:var(--radius-lg);
-        margin-bottom:8px;
-      }
-
-      .cardtitle{
-        font-size:16px;
-        line-height:1.15;
-      }
-
-      .cardmeta{
-        font-size:12px;
-        line-height:1.45;
-      }
-
-      .h-220{height:170px}
-      .h-260{height:190px}
-      .h-300{height:220px}
-      .h-340{height:250px}
-      .h-380{height:280px}
-      .h-420{height:320px}
-
-      .bottom-nav{
-        width:calc(100% - 20px);
-        bottom:calc(6px + env(safe-area-inset-bottom, 0px));
-        padding:5px;
-      }
-
-      .bottom-nav a{
-        padding:10px 6px;
-        font-size:13px;
-      }
-    }
-
-    @media (max-width:420px){
-      .works{grid-template-columns:1fr}
-      .h-220{height:210px}
-      .h-260{height:230px}
-      .h-300{height:250px}
-      .h-340{height:280px}
-      .h-380{height:310px}
-      .h-420{height:340px}
-    }
-  </style>
+	<link rel="stylesheet" href="../assets/css/site.css" />
 </head>
-<body class="is-loading">
-  <header class="site-header">
-    <div class="topbar">
-      <div class="brand">nestudio</div>
-
-      <div class="header-actions">
-        <div class="header-contact">
-          <a href="https://t.me/nestudiopro" target="_blank" rel="noopener noreferrer">@nestudiopro</a>
-          <span class="header-divider"></span>
-          <a href="tel:+375447138869">+375 44 713-88-69</a>
-        </div>
-
-        <a href="contact.html" class="header-cta">Обсудить проект</a>
-
-        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Переключить тему">
-          <span id="themeIcon"></span>
-        </button>
-      </div>
-    </div>
-  </header>
-
-  <main class="page">
-    <section class="portfolio-intro reveal is-visible">
-      <div class="section-title">Работы</div>
-      <h1 class="portfolio-title" aria-label="Избранные проекты nestudio">
-        <span class="line-wrap"><span class="line">Избранные</span></span>
-        <span class="line-wrap"><span class="line">проекты</span></span>
-        <span class="line-wrap"><span class="line">nestudio</span></span>
-      </h1>
-      <p class="portfolio-text">
-        AI-ролики, аватары, e-commerce визуалы, презентации, лендинги и мокапы - в формате пилотных и production-задач для бизнеса.
-      </p>
-    </section>
-
-    <section class="filters-sticky reveal reveal--delay-1 is-visible">
-      <div class="filters-shell">
-        <div class="filters-menu" id="filters">
-          <button type="button" class="filter-btn active" data-filter="all">Все</button>
-          <button type="button" class="filter-btn" data-filter="video">AI-ролики</button>
-          <button type="button" class="filter-btn" data-filter="avatar">Аватары</button>
-          <button type="button" class="filter-btn" data-filter="ecom">E-commerce</button>
-          <button type="button" class="filter-btn" data-filter="web">Лендинги</button>
-          <button type="button" class="filter-btn" data-filter="deck">Презентации</button>
-          <button type="button" class="filter-btn" data-filter="mockup">Мокапы</button>
-        </div>
-      </div>
-    </section>
-
-    <section class="works" id="works">
-      <article class="card reveal reveal--fast" data-category="video">
-        <a href="https://pplx-res.cloudinary.com/image/upload/pplx-search-images/954a116a0bf2e9bd035b1ca36b69a2c2bbf8abdf.jpg" class="cardlink" target="_blank" rel="noopener noreferrer">
-          <div class="cardimage h-420">
-            <img src="https://pplx-res.cloudinary.com/image/upload/pplx-search-images/954a116a0bf2e9bd035b1ca36b69a2c2bbf8abdf.jpg" alt="AI-ролик" />
-          </div>
-          <h3 class="cardtitle">AI-ролик</h3>
-          <p class="cardmeta">Концепт, сценарий, AI-визуал и монтаж под задачу бренда.</p>
-        </a>
-      </article>
-
-      <article class="card reveal reveal--delay-1" data-category="ecom">
-        <a href="project-global-vision.html" class="cardlink">
-          <div class="cardimage h-300">
-            <img src="img/case-vision-1-hero.jpeg" alt="AI-кейс Global Vision - hero visual" />
-          </div>
-          <h3 class="cardtitle">AI-кейс Global Vision</h3>
-          <p class="cardmeta">Продуктовая подача, структура и визуальный язык для кейса.</p>
-        </a>
-      </article>
-
-      <article class="card reveal reveal--delay-2" data-category="deck">
-        <a href="project-aura-gard.html" class="cardlink">
-          <div class="cardimage h-260">
-            <img src="img/preziAura/page-0004.jpg" alt="B2B deck" />
-          </div>
-          <h3 class="cardtitle">B2B-презентация</h3>
-          <p class="cardmeta">Презентация для сложного B2B-продукта и переговорного процесса.</p>
-        </a>
-      </article>
-
-      <article class="card reveal reveal--delay-3" data-category="web">
-        <a href="https://pplx-res.cloudinary.com/image/upload/pplx-search-images/33d12ecdffe495991098be6d3237b6cf4f8ead40.jpg" class="cardlink" target="_blank" rel="noopener noreferrer">
-          <div class="cardimage h-340">
-            <img src="https://pplx-res.cloudinary.com/image/upload/pplx-search-images/33d12ecdffe495991098be6d3237b6cf4f8ead40.jpg" alt="Лендинг" />
-          </div>
-          <h3 class="cardtitle">AI-лендинг</h3>
-          <p class="cardmeta">Лендинг под запуск, упаковку оффера и визуальную подачу.</p>
-        </a>
-      </article>
-
-      <article class="card reveal reveal--fast" data-category="mockup">
-        <a href="https://pplx-res.cloudinary.com/image/upload/pplx-search-images/9c1fd8bccef7c016d1b78e70b5350f323046a802.jpg" class="cardlink" target="_blank" rel="noopener noreferrer">
-          <div class="cardimage h-340">
-            <img src="https://pplx-res.cloudinary.com/image/upload/pplx-search-images/9c1fd8bccef7c016d1b78e70b5350f323046a802.jpg" alt="Мокап" />
-          </div>
-          <h3 class="cardtitle">Мокап-серия</h3>
-          <p class="cardmeta">Product visuals, digital-упаковка и e-commerce подача.</p>
-        </a>
-      </article>
-
-      <article class="card reveal reveal--delay-1" data-category="avatar">
-        <a href="https://pplx-res.cloudinary.com/image/upload/pplx-search-images/6408949139fac84a728ef5e90ad781fc56e73c6d.jpg" class="cardlink" target="_blank" rel="noopener noreferrer">
-          <div class="cardimage h-340">
-            <img src="https://pplx-res.cloudinary.com/image/upload/pplx-search-images/6408949139fac84a728ef5e90ad781fc56e73c6d.jpg" alt="AI-аватар" />
-          </div>
-          <h3 class="cardtitle">AI-аватар</h3>
-          <p class="cardmeta">Аватары, персонажи и визуальные образы под бренд-задачи.</p>
-        </a>
-      </article>
-
-      <article class="card reveal reveal--delay-2" data-category="video">
-        <a href="https://pplx-res.cloudinary.com/image/upload/pplx-search-images/8b2f3120bee30ed82a0b7a8a12e892d516cb655c.jpg" class="cardlink" target="_blank" rel="noopener noreferrer">
-          <div class="cardimage h-260">
-            <img src="https://pplx-res.cloudinary.com/image/upload/pplx-search-images/8b2f3120bee30ed82a0b7a8a12e892d516cb655c.jpg" alt="Ad tech ролик" />
-          </div>
-          <h3 class="cardtitle">Ad tech-ролик</h3>
-          <p class="cardmeta">Гибрид AI и real production под digital-задачу.</p>
-        </a>
-      </article>
-
-      <article class="card reveal reveal--delay-3" data-category="ecom">
-        <a href="https://pplx-res.cloudinary.com/image/upload/pplx-search-images/36be465bc8997ded4f53d4c56513d9ff7f928d0f.jpg" class="cardlink" target="_blank" rel="noopener noreferrer">
-          <div class="cardimage h-300">
-            <img src="https://pplx-res.cloudinary.com/image/upload/pplx-search-images/36be465bc8997ded4f53d4c56513d9ff7f928d0f.jpg" alt="SKU visuals" />
-          </div>
-          <h3 class="cardtitle">SKU visuals</h3>
-          <p class="cardmeta">Серия карточек и визуалов для товарной линейки.</p>
-        </a>
-      </article>
-
-      <article class="card reveal reveal--fast" data-category="web">
-        <a href="https://pplx-res.cloudinary.com/image/upload/pplx-search-images/77e5d37048ab71a905cf614aad89a3efb837aa6d.jpg" class="cardlink" target="_blank" rel="noopener noreferrer">
-          <div class="cardimage h-300">
-            <img src="https://pplx-res.cloudinary.com/image/upload/pplx-search-images/77e5d37048ab71a905cf614aad89a3efb837aa6d.jpg" alt="Premium landing" />
-          </div>
-          <h3 class="cardtitle">Premium-лендинг</h3>
-          <p class="cardmeta">Editorial-подход, структура и премиальный digital-ритм.</p>
-        </a>
-      </article>
-
-      <article class="card reveal reveal--delay-1" data-category="deck">
-        <a href="https://pplx-res.cloudinary.com/image/upload/pplx-search-images/70991c9fe3d1c2f664a6c696bc99eecaa8a7e579.jpg" class="cardlink" target="_blank" rel="noopener noreferrer">
-          <div class="cardimage h-220">
-            <img src="https://pplx-res.cloudinary.com/image/upload/pplx-search-images/70991c9fe3d1c2f664a6c696bc99eecaa8a7e579.jpg" alt="Pitch deck" />
-          </div>
-          <h3 class="cardtitle">Pitch deck</h3>
-          <p class="cardmeta">Структура презентации под продажи и короткий питч.</p>
-        </a>
-      </article>
-
-      <article class="card reveal reveal--delay-2" data-category="mockup">
-        <a href="https://pplx-res.cloudinary.com/image/upload/pplx-search-images/52cc445bb170e677cf14c96a77efc7c3541bb34b.jpg" class="cardlink" target="_blank" rel="noopener noreferrer">
-          <div class="cardimage h-300">
-            <img src="https://pplx-res.cloudinary.com/image/upload/pplx-search-images/52cc445bb170e677cf14c96a77efc7c3541bb34b.jpg" alt="Product mockup" />
-          </div>
-          <h3 class="cardtitle">Product mockup</h3>
-          <p class="cardmeta">Предметная подача, продуктовые ракурсы и коммерческий стиль.</p>
-        </a>
-      </article>
-
-      <article class="card reveal reveal--delay-3" data-category="avatar">
-        <a href="https://pplx-res.cloudinary.com/image/upload/pplx-search-images/85e751ca45e266200980d8e45da11d6d062a0849.jpg" class="cardlink" target="_blank" rel="noopener noreferrer">
-          <div class="cardimage h-340">
-            <img src="https://pplx-res.cloudinary.com/image/upload/pplx-search-images/85e751ca45e266200980d8e45da11d6d062a0849.jpg" alt="Avatar concept" />
-          </div>
-          <h3 class="cardtitle">Avatar concept</h3>
-          <p class="cardmeta">AI-персонажи и визуальные образы для контента и рекламы.</p>
-        </a>
-      </article>
-
-      <article class="card reveal reveal--fast" data-category="video">
-        <a href="https://pplx-res.cloudinary.com/image/upload/pplx-search-images/1cfd290b8fb7cb17b58bfbeea85ba7b7c5af58e1.jpg" class="cardlink" target="_blank" rel="noopener noreferrer">
-          <div class="cardimage h-300">
-            <img src="https://pplx-res.cloudinary.com/image/upload/pplx-search-images/1cfd290b8fb7cb17b58bfbeea85ba7b7c5af58e1.jpg" alt="AI video control room" />
-          </div>
-          <h3 class="cardtitle">AI-control room</h3>
-          <p class="cardmeta">Control room-сцена и техно-визуал для ролика.</p>
-        </a>
-      </article>
-
-      <article class="card reveal reveal--delay-1" data-category="ecom">
-        <a href="https://pplx-res.cloudinary.com/image/upload/pplx-search-images/50aae45771ed09fcf1492771ea332194949269c4.jpg" class="cardlink" target="_blank" rel="noopener noreferrer">
-          <div class="cardimage h-300">
-            <img src="https://pplx-res.cloudinary.com/image/upload/pplx-search-images/50aae45771ed09fcf1492771ea332194949269c4.jpg" alt="Skincare e-commerce" />
-          </div>
-          <h3 class="cardtitle">Skincare e-commerce</h3>
-          <p class="cardmeta">Beauty-визуалы и премиальная карточка продукта.</p>
-        </a>
-      </article>
-
-      <article class="card reveal reveal--delay-2" data-category="web">
-        <a href="https://pplx-res.cloudinary.com/image/upload/pplx-search-images/300b1fbdcf684d6e4c20fb8915622ca546faa8e0.jpg" class="cardlink" target="_blank" rel="noopener noreferrer">
-          <div class="cardimage h-260">
-            <img src="https://pplx-res.cloudinary.com/image/upload/pplx-search-images/300b1fbdcf684d6e4c20fb8915622ca546faa8e0.jpg" alt="Website mockup" />
-          </div>
-          <h3 class="cardtitle">Web-editorial</h3>
-          <p class="cardmeta">Редакционный подход к web-упаковке бренда.</p>
-        </a>
-      </article>
-
-      <article class="card reveal reveal--delay-3" data-category="ecom">
-        <a href="https://pplx-res.cloudinary.com/image/upload/pplx-search-images/cb8cf07649f5c5168e3c2310198da6b89eef3527.jpg" class="cardlink" target="_blank" rel="noopener noreferrer">
-          <div class="cardimage h-220">
-            <img src="https://pplx-res.cloudinary.com/image/upload/pplx-search-images/cb8cf07649f5c5168e3c2310198da6b89eef3527.jpg" alt="Beauty product" />
-          </div>
-          <h3 class="cardtitle">Beauty product</h3>
-          <p class="cardmeta">Товарный визуал для e-commerce и рекламы.</p>
-        </a>
-      </article>
-
-      <article class="card reveal reveal--fast" data-category="web">
-        <a href="https://pplx-res.cloudinary.com/image/upload/pplx-search-images/b01e28a24354fe0a1a0e70a2d6c20b56031ff54b.jpg" class="cardlink" target="_blank" rel="noopener noreferrer">
-          <div class="cardimage h-300">
-            <img src="https://pplx-res.cloudinary.com/image/upload/pplx-search-images/b01e28a24354fe0a1a0e70a2d6c20b56031ff54b.jpg" alt="Editorial digital" />
-          </div>
-          <h3 class="cardtitle">Editorial digital</h3>
-          <p class="cardmeta">Digital-страница с акцентом на типографику и ритм.</p>
-        </a>
-      </article>
-
-      <article class="card reveal reveal--delay-1" data-category="mockup">
-        <a href="https://pplx-res.cloudinary.com/image/upload/pplx-search-images/3cf233cfd8d111504c1c18453ef9347ad8a9f057.jpg" class="cardlink" target="_blank" rel="noopener noreferrer">
-          <div class="cardimage h-260">
-            <img src="https://pplx-res.cloudinary.com/image/upload/pplx-search-images/3cf233cfd8d111504c1c18453ef9347ad8a9f057.jpg" alt="Product mockup set" />
-          </div>
-          <h3 class="cardtitle">Product mockup set</h3>
-          <p class="cardmeta">Серия продуктовых мокапов для бренд-подачи.</p>
-        </a>
-      </article>
-
-      <article class="card reveal reveal--delay-2" data-category="deck">
-        <a href="project-monural.html" class="cardlink">
-          <div class="cardimage h-220">
-            <img src="img/preziManural/page-0004.jpg" alt="Monural presentation" />
-          </div>
-          <h3 class="cardtitle">Monural deck</h3>
-          <p class="cardmeta">Презентация под продукт и деловую коммуникацию.</p>
-        </a>
-      </article>
-
-      <article class="card reveal reveal--delay-3" data-category="deck">
-        <a href="project-stepyanka-city.html" class="cardlink">
-          <div class="cardimage h-220">
-            <img src="img/preziCity/page-0001.jpg" alt="Stepyanka City deck" />
-          </div>
-          <h3 class="cardtitle">Stepyanka City</h3>
-          <p class="cardmeta">Городской проект, структура и презентационная подача.</p>
-        </a>
-      </article>
-
-      <article class="card reveal reveal--fast" data-category="mockup">
-        <a href="https://pplx-res.cloudinary.com/image/upload/pplx-search-images/84082bb5f88ff3b1fa033c66a02c0a878ce5910b.jpg" class="cardlink" target="_blank" rel="noopener noreferrer">
-          <div class="cardimage h-260">
-            <img src="https://pplx-res.cloudinary.com/image/upload/pplx-search-images/84082bb5f88ff3b1fa033c66a02c0a878ce5910b.jpg" alt="Premium skincare product" />
-          </div>
-          <h3 class="cardtitle">Premium product</h3>
-          <p class="cardmeta">Продуктовая сцена с премиальной e-commerce подачей.</p>
-        </a>
-      </article>
-
-      <article class="card reveal reveal--delay-1" data-category="avatar">
-        <a href="https://pplx-res.cloudinary.com/image/upload/pplx-search-images/eab1131c2f011b2bdf5701f4bf7eb7eae6325207.jpg" class="cardlink" target="_blank" rel="noopener noreferrer">
-          <div class="cardimage h-260">
-            <img src="https://pplx-res.cloudinary.com/image/upload/pplx-search-images/eab1131c2f011b2bdf5701f4bf7eb7eae6325207.jpg" alt="AI studio avatar" />
-          </div>
-          <h3 class="cardtitle">AI-studio avatar</h3>
-          <p class="cardmeta">Бренд-образ и персонаж под digital-коммуникацию.</p>
-        </a>
-      </article>
-
-      <article class="card reveal reveal--delay-2" data-category="avatar">
-        <a href="https://pplx-res.cloudinary.com/image/upload/pplx-search-images/6408949139fac84a728ef5e90ad781fc56e73c6d.jpg" class="cardlink" target="_blank" rel="noopener noreferrer">
-          <div class="cardimage h-300">
-            <img src="https://pplx-res.cloudinary.com/image/upload/pplx-search-images/6408949139fac84a728ef5e90ad781fc56e73c6d.jpg" alt="Avatar product visual" />
-          </div>
-          <h3 class="cardtitle">Avatar visual</h3>
-          <p class="cardmeta">Визуальный персонаж в product-контексте.</p>
-        </a>
-      </article>
-
-      <article class="card reveal reveal--delay-3" data-category="video">
-        <a href="https://pplx-res.cloudinary.com/image/upload/pplx-search-images/caea7d8e6856f39467502528c5ec4713029283d1.jpg" class="cardlink" target="_blank" rel="noopener noreferrer">
-          <div class="cardimage h-260">
-            <img src="https://pplx-res.cloudinary.com/image/upload/pplx-search-images/caea7d8e6856f39467502528c5ec4713029283d1.jpg" alt="Production setup AI scene" />
-          </div>
-          <h3 class="cardtitle">Production setup</h3>
-          <p class="cardmeta">Production-сцена, setup и AI-visual под коммерческую задачу.</p>
-        </a>
-      </article>
-    </section>
-  </main>
-
-  <nav class="bottom-nav">
-    <a href="index.html" class="active">Работы</a>
-    <a href="about.html">О нас</a>
-    <a href="contact.html">Контакты</a>
-  </nav>
-
-  <script>
-    const body = document.body;
-    const works = document.getElementById('works');
-    const filters = document.getElementById('filters');
-    const filterButtons = Array.from(document.querySelectorAll('.filter-btn'));
-    const themeToggle = document.getElementById('themeToggle');
-    const themeIcon = document.getElementById('themeIcon');
-
-    const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    const fallbackSvg =
-      "data:image/svg+xml;charset=utf-8," +
-      encodeURIComponent(
-        '<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900"><rect width="1200" height="900" fill="#dcdcd7"/><text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" font-family="Inter, Arial, sans-serif" font-size="36" fill="#7d7d78">nestudio preview</text></svg>'
-      );
-
-    let isFiltering = false;
-    let currentFilter = 'all';
-    let io = null;
-    let resizeTimer = null;
-    let lastColumnCount = 0;
-
-    const originalCards = Array.from(works.querySelectorAll('.card'));
-
-    function applyTheme(theme) {
-      body.classList.toggle('dark', theme === 'dark');
-      themeIcon.textContent = theme === 'dark' ? '☀' : '◐';
-      themeToggle.setAttribute('aria-label', theme === 'dark' ? 'Включить светлую тему' : 'Включить тёмную тему');
-      localStorage.setItem('theme', theme);
-    }
-
-    applyTheme(savedTheme || (prefersDark ? 'dark' : 'light'));
-
-    themeToggle.addEventListener('click', event => {
-      event.preventDefault();
-      applyTheme(body.classList.contains('dark') ? 'light' : 'dark');
-    });
-
-    function safeScrollRestore(y) {
-      requestAnimationFrame(() => window.scrollTo(0, y));
-      requestAnimationFrame(() => window.scrollTo(0, y));
-    }
-
-    function setActiveButton(activeButton) {
-      filterButtons.forEach(btn => {
-        const active = btn === activeButton;
-        btn.classList.toggle('active', active);
-        btn.setAttribute('aria-pressed', String(active));
-      });
-    }
-
-    function getColumnCount() {
-      if (window.innerWidth <= 420) return 1;
-      if (window.innerWidth <= 1180) return 2;
-      return 3;
-    }
-
-    function createColumns(count) {
-      works.innerHTML = '';
-      const cols = [];
-      for (let i = 0; i < count; i++) {
-        const col = document.createElement('div');
-        col.className = 'masonry-col';
-        works.appendChild(col);
-        cols.push(col);
-      }
-      return cols;
-    }
-
-    function getVisibleCards(filter) {
-      return originalCards.filter(card => filter === 'all' || card.dataset.category === filter);
-    }
-
-    function animateCardsIn(cards) {
-      cards.forEach((card, index) => {
-        card.classList.remove('is-visible', 'reveal--fast', 'reveal--delay-1', 'reveal--delay-2', 'reveal--delay-3', 'reveal--delay-4');
-        const mod = index % 5;
-        if (mod === 0) card.classList.add('reveal--fast');
-        if (mod === 1) card.classList.add('reveal--delay-1');
-        if (mod === 2) card.classList.add('reveal--delay-2');
-        if (mod === 3) card.classList.add('reveal--delay-3');
-        if (mod === 4) card.classList.add('reveal--delay-4');
-
-        if (prefersReducedMotion) {
-          card.classList.add('is-visible');
-          return;
-        }
-
-        requestAnimationFrame(() => requestAnimationFrame(() => card.classList.add('is-visible')));
-      });
-    }
-
-    function observeCards(cards) {
-      if (prefersReducedMotion || !io) return;
-      cards.forEach(card => io.unobserve(card));
-      cards.forEach(card => {
-        if (!card.classList.contains('is-visible')) io.observe(card);
-      });
-    }
-
-    function renderMasonry(filter, animate = false) {
-      const visibleCards = getVisibleCards(filter);
-      const columnCount = getColumnCount();
-      const columns = createColumns(columnCount);
-      const heights = new Array(columnCount).fill(0);
-
-      lastColumnCount = columnCount;
-
-      visibleCards.forEach(card => {
-        card.classList.remove('is-visible');
-        let targetIndex = 0;
-        let minHeight = heights[0];
-
-        for (let i = 1; i < heights.length; i++) {
-          if (heights[i] < minHeight) {
-            minHeight = heights[i];
-            targetIndex = i;
-          }
-        }
-
-        columns[targetIndex].appendChild(card);
-        heights[targetIndex] = columns[targetIndex].offsetHeight;
-      });
-
-      if (animate) animateCardsIn(visibleCards);
-      else observeCards(visibleCards);
-    }
-
-    function applyFilter(filter) {
-      if (isFiltering || filter === currentFilter) return;
-
-      isFiltering = true;
-      const currentY = window.scrollY;
-      const currentHeight = works.offsetHeight;
-
-      currentFilter = filter;
-      works.style.minHeight = currentHeight + 'px';
-      works.classList.add('is-filtering');
-
-      renderMasonry(filter, true);
-      safeScrollRestore(currentY);
-
-      requestAnimationFrame(() => requestAnimationFrame(() => {
-        works.style.minHeight = '';
-        works.classList.remove('is-filtering');
-        isFiltering = false;
-      }));
-    }
-
-    if (!prefersReducedMotion) {
-      io = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            io.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.14, rootMargin: '0px 0px -8% 0px' });
-    }
-
-    filters.addEventListener('click', event => {
-      const button = event.target.closest('.filter-btn');
-      if (!button) return;
-      event.preventDefault();
-      event.stopPropagation();
-      event.stopImmediatePropagation();
-      setActiveButton(button);
-      applyFilter(button.dataset.filter);
-      button.blur();
-    }, { passive: false });
-
-    filterButtons.forEach(button => {
-      button.setAttribute('aria-pressed', button.classList.contains('active') ? 'true' : 'false');
-    });
-
-    window.addEventListener('resize', () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => {
-        const nextColumnCount = getColumnCount();
-        if (nextColumnCount === lastColumnCount) return;
-        renderMasonry(currentFilter, false);
-      }, 120);
-    });
-
-    document.querySelectorAll('.card img').forEach(img => {
-      img.loading = 'lazy';
-      img.decoding = 'async';
-      img.referrerPolicy = 'no-referrer';
-
-      img.addEventListener('error', () => {
-        const link = img.closest('.cardlink');
-        img.src = fallbackSvg;
-        if (link) link.href = fallbackSvg;
-      });
-    });
-
-    renderMasonry(currentFilter, false);
-
-    window.addEventListener('load', () => {
-      requestAnimationFrame(() => {
-        body.classList.remove('is-loading');
-        body.classList.add('is-ready');
-      });
-    });
-  </script>
+
+<body class="is-loading" data-page="works" data-base="../">
+	<div id="site-header"></div>
+
+	<main class="page">
+		<section class="portfolio-intro">
+			<div class="section-title">Работы</div>
+
+			<h1 class="portfolio-title">
+				<span class="line-wrap"><span class="line">Избранные</span></span>
+				<span class="line-wrap"><span class="line">проекты</span></span>
+				<span class="line-wrap"><span class="line">nestudio</span></span>
+			</h1>
+
+			<p class="portfolio-text">
+				AI-ролики, аватары, e-commerce визуалы, презентации, лендинги и мокапы —
+				в формате пилотных и production-задач для бизнеса.
+			</p>
+		</section>
+
+		<section class="filters-sticky" aria-label="Фильтр работ">
+			<div class="filters-shell">
+				<div class="filters-menu" id="filters">
+					<button class="filter-btn active" type="button" data-filter="all">Все</button>
+					<button class="filter-btn" type="button" data-filter="video">AI-ролики</button>
+					<button class="filter-btn" type="button" data-filter="avatar">Аватары</button>
+					<button class="filter-btn" type="button" data-filter="commerce">E-commerce</button>
+					<button class="filter-btn" type="button" data-filter="landing">Лендинги</button>
+					<button class="filter-btn" type="button" data-filter="deck">Презентации</button>
+					<button class="filter-btn" type="button" data-filter="mockup">Мокапы</button>
+				</div>
+			</div>
+		</section>
+
+		<section class="works" id="works" aria-label="Список проектов">
+			<article class="card reveal" data-category="video">
+				<a class="cardlink" href="aura-gard.html">
+					<div class="cardimage h-340">
+						<img
+							src="https://images.unsplash.com/photo-1633419461186-7d40a38105ec?auto=format&fit=crop&w=1200&q=82"
+							alt="AI-ролик: футуристичная production-сцена с цифровым экраном"
+						/>
+					</div>
+
+					<h2 class="cardtitle">AI-ролик</h2>
+					<p class="cardmeta">
+						Концепт, сценарий, AI-визуал и монтаж под задачу бренда.
+					</p>
+				</a>
+			</article>
+
+			<article class="card reveal" data-category="deck">
+				<a class="cardlink" href="aura-gard.html">
+					<div class="cardimage h-420">
+						<img
+							src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=82"
+							alt="B2B-презентация: команда обсуждает структуру проекта"
+						/>
+					</div>
+
+					<h2 class="cardtitle">AI-кейс Global Vision</h2>
+					<p class="cardmeta">
+						Продуктовая подача, структура и визуальный язык для кейса.
+					</p>
+				</a>
+			</article>
+
+			<article class="card reveal" data-category="deck">
+				<a class="cardlink" href="aura-gard.html">
+					<div class="cardimage h-300">
+						<img
+							src="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=1200&q=82"
+							alt="B2B-презентация: рабочая встреча и бизнес-материалы"
+						/>
+					</div>
+
+					<h2 class="cardtitle">B2B-презентация</h2>
+					<p class="cardmeta">
+						Презентация для сложного B2B-продукта и переговорного процесса.
+					</p>
+				</a>
+			</article>
+
+			<article class="card reveal" data-category="landing">
+				<a class="cardlink" href="aura-gard.html">
+					<div class="cardimage h-380">
+						<img
+							src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=82"
+							alt="AI-лендинг: современное рабочее пространство"
+						/>
+					</div>
+
+					<h2 class="cardtitle">AI-лендинг</h2>
+					<p class="cardmeta">
+						Лендинг под запуск, упаковку оффера и визуальную подачу.
+					</p>
+				</a>
+			</article>
+
+			<article class="card reveal" data-category="mockup">
+				<a class="cardlink" href="aura-gard.html">
+					<div class="cardimage h-260">
+						<img
+							src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=82"
+							alt="Мокап-серия: экран ноутбука с цифровым интерфейсом"
+						/>
+					</div>
+
+					<h2 class="cardtitle">Мокап-серия</h2>
+					<p class="cardmeta">
+						Product visuals, digital-упаковка и e-commerce подача.
+					</p>
+				</a>
+			</article>
+
+			<article class="card reveal" data-category="avatar">
+				<a class="cardlink" href="aura-gard.html">
+					<div class="cardimage h-340">
+						<img
+							src="https://images.unsplash.com/photo-1531746790731-6c087fecd65a?auto=format&fit=crop&w=1200&q=82"
+							alt="AI-аватар: цифровой персонаж в технологичной среде"
+						/>
+					</div>
+
+					<h2 class="cardtitle">AI-аватар</h2>
+					<p class="cardmeta">
+						Аватары, персонажи и визуальные образы под бренд-задачи.
+					</p>
+				</a>
+			</article>
+
+			<article class="card reveal" data-category="video">
+				<a class="cardlink" href="aura-gard.html">
+					<div class="cardimage h-420">
+						<img
+							src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?auto=format&fit=crop&w=1200&q=82"
+							alt="Ad tech-ролик: технологичная лаборатория и световые панели"
+						/>
+					</div>
+
+					<h2 class="cardtitle">Ad tech-ролик</h2>
+					<p class="cardmeta">
+						Гибрид AI и real production под digital-задачу.
+					</p>
+				</a>
+			</article>
+
+			<article class="card reveal" data-category="commerce">
+				<a class="cardlink" href="aura-gard.html">
+					<div class="cardimage h-300">
+						<img
+							src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1200&q=82"
+							alt="SKU visuals: премиальная продуктовая карточка"
+						/>
+					</div>
+
+					<h2 class="cardtitle">SKU visuals</h2>
+					<p class="cardmeta">
+						Серия карточек и визуалов для товарной линейки.
+					</p>
+				</a>
+			</article>
+
+			<article class="card reveal" data-category="landing">
+				<a class="cardlink" href="aura-gard.html">
+					<div class="cardimage h-380">
+						<img
+							src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=1200&q=82"
+							alt="Premium-лендинг: минималистичный офисный интерьер"
+						/>
+					</div>
+
+					<h2 class="cardtitle">Premium-лендинг</h2>
+					<p class="cardmeta">
+						Editorial-подход, структура и премиальный digital-ритм.
+					</p>
+				</a>
+			</article>
+
+			<article class="card reveal" data-category="deck">
+				<a class="cardlink" href="aura-gard.html">
+					<div class="cardimage h-220">
+						<img
+							src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1200&q=82"
+							alt="Pitch deck: деловая презентация и аналитические материалы"
+						/>
+					</div>
+
+					<h2 class="cardtitle">Pitch deck</h2>
+					<p class="cardmeta">
+						Структура презентации под продажи и короткий питч.
+					</p>
+				</a>
+			</article>
+
+			<article class="card reveal" data-category="mockup">
+				<a class="cardlink" href="aura-gard.html">
+					<div class="cardimage h-300">
+						<img
+							src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1200&q=82"
+							alt="Product mockup: абстрактная 3D-композиция"
+						/>
+					</div>
+
+					<h2 class="cardtitle">Product mockup</h2>
+					<p class="cardmeta">
+						Предметная подача, продуктовые ракурсы и коммерческий стиль.
+					</p>
+				</a>
+			</article>
+
+			<article class="card reveal" data-category="avatar">
+				<a class="cardlink" href="aura-gard.html">
+					<div class="cardimage h-340">
+						<img
+							src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=82"
+							alt="Avatar concept: портретный визуал для бренда"
+						/>
+					</div>
+
+					<h2 class="cardtitle">Avatar concept</h2>
+					<p class="cardmeta">
+						AI-персонажи и визуальные образы для контента и рекламы.
+					</p>
+				</a>
+			</article>
+
+			<article class="card reveal" data-category="video">
+				<a class="cardlink" href="aura-gard.html">
+					<div class="cardimage h-380">
+						<img
+							src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=82"
+							alt="AI-control room: электронная плата и технологичная детализация"
+						/>
+					</div>
+
+					<h2 class="cardtitle">AI-control room</h2>
+					<p class="cardmeta">
+						Control room-сцена и техно-визуал для ролика.
+					</p>
+				</a>
+			</article>
+
+			<article class="card reveal" data-category="commerce">
+				<a class="cardlink" href="aura-gard.html">
+					<div class="cardimage h-420">
+						<img
+							src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&w=1200&q=82"
+							alt="Skincare e-commerce: косметический продукт в светлой композиции"
+						/>
+					</div>
+
+					<h2 class="cardtitle">Skincare e-commerce</h2>
+					<p class="cardmeta">
+						Beauty-визуалы и премиальная карточка продукта.
+					</p>
+				</a>
+			</article>
+
+			<article class="card reveal" data-category="landing">
+				<a class="cardlink" href="aura-gard.html">
+					<div class="cardimage h-300">
+						<img
+							src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=82"
+							alt="Web-editorial: стильная архитектурная композиция"
+						/>
+					</div>
+
+					<h2 class="cardtitle">Web-editorial</h2>
+					<p class="cardmeta">
+						Редакционный подход к web-упаковке бренда.
+					</p>
+				</a>
+			</article>
+
+			<article class="card reveal" data-category="commerce">
+				<a class="cardlink" href="aura-gard.html">
+					<div class="cardimage h-260">
+						<img
+							src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=1200&q=82"
+							alt="Beauty product: косметика и premium product visuals"
+						/>
+					</div>
+
+					<h2 class="cardtitle">Beauty product</h2>
+					<p class="cardmeta">
+						Товарный визуал для e-commerce и рекламы.
+					</p>
+				</a>
+			</article>
+
+			<article class="card reveal" data-category="landing">
+				<a class="cardlink" href="aura-gard.html">
+					<div class="cardimage h-340">
+						<img
+							src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1200&q=82"
+							alt="Editorial digital: современное рабочее пространство"
+						/>
+					</div>
+
+					<h2 class="cardtitle">Editorial digital</h2>
+					<p class="cardmeta">
+						Digital-страница с акцентом на типографику и ритм.
+					</p>
+				</a>
+			</article>
+
+			<article class="card reveal" data-category="mockup">
+				<a class="cardlink" href="aura-gard.html">
+					<div class="cardimage h-420">
+						<img
+							src="https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=1200&q=82"
+							alt="Product mockup set: экран с digital-интерфейсом"
+						/>
+					</div>
+
+					<h2 class="cardtitle">Product mockup set</h2>
+					<p class="cardmeta">
+						Серия продуктовых мокапов для бренд-подачи.
+					</p>
+				</a>
+			</article>
+
+			<article class="card reveal" data-category="deck">
+				<a class="cardlink" href="aura-gard.html">
+					<div class="cardimage h-300">
+						<img
+							src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=82"
+							alt="Monural deck: аналитическая панель и деловая структура"
+						/>
+					</div>
+
+					<h2 class="cardtitle">Monural deck</h2>
+					<p class="cardmeta">
+						Презентация под продукт и деловую коммуникацию.
+					</p>
+				</a>
+			</article>
+
+			<article class="card reveal" data-category="deck">
+				<a class="cardlink" href="aura-gard.html">
+					<div class="cardimage h-260">
+						<img
+							src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=82"
+							alt="Stepyanka City: городской проект и архитектурная подача"
+						/>
+					</div>
+
+					<h2 class="cardtitle">Stepyanka City</h2>
+					<p class="cardmeta">
+						Городской проект, структура и презентационная подача.
+					</p>
+				</a>
+			</article>
+
+			<article class="card reveal" data-category="commerce">
+				<a class="cardlink" href="aura-gard.html">
+					<div class="cardimage h-380">
+						<img
+							src="https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=1200&q=82"
+							alt="Premium product: премиальный продукт в рекламной композиции"
+						/>
+					</div>
+
+					<h2 class="cardtitle">Premium product</h2>
+					<p class="cardmeta">
+						Продуктовая сцена с премиальной e-commerce подачей.
+					</p>
+				</a>
+			</article>
+
+			<article class="card reveal" data-category="avatar">
+				<a class="cardlink" href="aura-gard.html">
+					<div class="cardimage h-340">
+						<img
+							src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?auto=format&fit=crop&w=1200&q=82"
+							alt="AI-studio avatar: портретный бренд-образ"
+						/>
+					</div>
+
+					<h2 class="cardtitle">AI-studio avatar</h2>
+					<p class="cardmeta">
+						Бренд-образ и персонаж под digital-коммуникацию.
+					</p>
+				</a>
+			</article>
+
+			<article class="card reveal" data-category="avatar">
+				<a class="cardlink" href="aura-gard.html">
+					<div class="cardimage h-260">
+						<img
+							src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=1200&q=82"
+							alt="Avatar visual: портретный визуальный персонаж"
+						/>
+					</div>
+
+					<h2 class="cardtitle">Avatar visual</h2>
+					<p class="cardmeta">
+						Визуальный персонаж в product-контексте.
+					</p>
+				</a>
+			</article>
+
+			<article class="card reveal" data-category="video">
+				<a class="cardlink" href="aura-gard.html">
+					<div class="cardimage h-420">
+						<img
+							src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?auto=format&fit=crop&w=1200&q=82"
+							alt="Production setup: визуальная сцена для коммерческого ролика"
+						/>
+					</div>
+
+					<h2 class="cardtitle">Production setup</h2>
+					<p class="cardmeta">
+						Production-сцена, setup и AI-visual под коммерческую задачу.
+					</p>
+				</a>
+			</article>
+		</section>
+	</main>
+
+	<div id="site-footer"></div>
+	<div id="site-bottom-nav"></div>
+
+	<script src="../assets/js/site.js"></script>
 </body>
 </html>
